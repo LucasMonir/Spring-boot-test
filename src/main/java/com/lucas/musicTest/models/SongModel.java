@@ -1,12 +1,14 @@
 package com.lucas.musicTest.models;
 
 import jakarta.persistence.*;
+import org.springframework.hateoas.RepresentationModel;
+
 import java.io.Serializable;
 import java.util.UUID;
 
 @Entity
 @Table(name = "song")
-public class SongModel implements Serializable {
+public class SongModel extends RepresentationModel<SongModel> implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id

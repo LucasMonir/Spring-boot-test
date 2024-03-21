@@ -16,6 +16,9 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+
 @RestController
 public class SongController {
 
@@ -31,11 +34,20 @@ public class SongController {
 
     @GetMapping("/songs")
     public ResponseEntity<List<SongModel>> getSongs(){
-        return ResponseEntity.status(HttpStatus.OK).body(songRepository.findAll());
+        List<SongModel> songs = songRepository.findAll();
+
+        if(!songs.isEmpty()){
+            for (SongModel song : songs){
+                UUID id = song.getId();
+                song.add(linkTo(methodOn(SongController.class).getSong(id)).withSelfRel());
+            }
+        }
+
+        return ResponseEntity.status(HttpStatus.OK).body(songs);
     }
 
     @GetMapping("/songs/{id}")
-    public ResponseEntity<Object> getSongs(@PathVariable(value="id") UUID id){
+    public ResponseEntity<Object> getSong(@PathVariable(value="id") UUID id){
         Optional<SongModel> song = songRepository.findById(id);
 
         if(song.isEmpty())
