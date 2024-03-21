@@ -35,7 +35,7 @@ public class MusicModel implements Serializable {
         return length;
     }
 
-    public void setLength(int legth) {
-        this.length = legth;
+    public void setLength(int length) {
+        this.length = length;
     }
 }
