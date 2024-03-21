@@ -1,6 +1,6 @@
 package com.lucas.musicTest.controllers;
 
-import com.lucas.musicTest.dtos.SongRecordDto;
+import com.lucas.musicTest.dtos.SongRecordDTO;
 import com.lucas.musicTest.models.song.SongModel;
 import com.lucas.musicTest.repositories.SongRepository;
 import jakarta.validation.Valid;
@@ -24,7 +24,7 @@ public class SongController {
     SongRepository songRepository;
 
     @PostMapping("/songs")
-    public ResponseEntity<SongModel> saveSong(@RequestBody  @Valid SongRecordDto song){
+    public ResponseEntity<SongModel> saveSong(@RequestBody  @Valid SongRecordDTO song){
         var songModel = new SongModel();
         BeanUtils.copyProperties(song, songModel);
         return ResponseEntity.status(HttpStatus.CREATED).body(songRepository.save(songModel));
@@ -55,7 +55,7 @@ public class SongController {
     }
 
     @PutMapping("/songs/{id}")
-    public ResponseEntity<Object> updateSong(@PathVariable(value="id") UUID id, @RequestBody @Valid SongRecordDto songRecordDto){
+    public ResponseEntity<Object> updateSong(@PathVariable(value="id") UUID id, @RequestBody @Valid SongRecordDTO songRecordDto){
         Optional<SongModel> song = songRepository.findById(id);
 
         if(song.isEmpty())

@@ -1,7 +1,9 @@
 package com.lucas.musicTest.controllers;
 
 import com.lucas.musicTest.dtos.AuthenticationRecordDTO;
+import com.lucas.musicTest.dtos.LoginResponseRecordDTO;
 import com.lucas.musicTest.dtos.RegisterRecordDTO;
+import com.lucas.musicTest.infra.security.TokenService;
 import com.lucas.musicTest.models.user.UserModel;
 import com.lucas.musicTest.models.user.UserRole;
 import com.lucas.musicTest.repositories.UserRepository;
@@ -27,12 +29,17 @@ public class AuthenticationController {
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    TokenService tokenService;
+
     @PostMapping("/login")
     public ResponseEntity<Object> login(@RequestBody @Valid AuthenticationRecordDTO data) {
         var usernamePasswordToken = new UsernamePasswordAuthenticationToken(data.login(), data.password());
         var authenticated = this.AuthenticationManager.authenticate(usernamePasswordToken);
 
-        return ResponseEntity.ok().build();
+        var token = tokenService.generateToken((UserModel) authenticated.getPrincipal());
+
+        return ResponseEntity.ok(new LoginResponseRecordDTO(token));
     }
 
     @PostMapping("/register")
