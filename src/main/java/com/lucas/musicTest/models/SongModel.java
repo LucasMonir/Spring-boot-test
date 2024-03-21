@@ -6,7 +6,7 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "song")
-public class MusicModel implements Serializable {
+public class SongModel implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
