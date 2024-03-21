@@ -1,7 +1,7 @@
 package com.lucas.musicTest.controllers;
 
 import com.lucas.musicTest.dtos.SongRecordDto;
-import com.lucas.musicTest.models.SongModel;
+import com.lucas.musicTest.models.song.SongModel;
 import com.lucas.musicTest.repositories.SongRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.BeanUtils;
@@ -10,9 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.swing.text.html.Option;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 

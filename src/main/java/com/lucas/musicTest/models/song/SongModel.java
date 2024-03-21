@@ -1,4 +1,4 @@
-package com.lucas.musicTest.models;
+package com.lucas.musicTest.models.song;
 
 import jakarta.persistence.*;
 import org.springframework.hateoas.RepresentationModel;
